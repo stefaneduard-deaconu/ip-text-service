@@ -1,7 +1,7 @@
 from app import app
 from app.ocr import translate
 
-
+# Deocamdata, DE FOLOSIT DOAR PENTRU A TESTA FUNCTIONALITATI
 # here we only keep the routes for the ocr, so we need to import all the functions from ocr
 @app.route('/ocr', methods=['GET'])
 def ocr():
