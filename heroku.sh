@@ -1,0 +1,1 @@
+nodemon --exec "heroku local" -e .py,.html --signal SIGTERM
