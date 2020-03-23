@@ -2,24 +2,16 @@ from flask import Flask, request, jsonify
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/xscan"
-mongo = PyMongo(app)
 
-
-#
-#
-# connection_params = {
-#     'user': 'stefan',
-#     'password': 'EKfBL0RgrrBnSkfB',
-#     'host': 'ip-skb3j.mongodb.net',
-#     'port': 25058,
-#     'namespace': 'test',
-# }
-# connection = MongoClient(
-#     'mongodb://{user}:{password}@{host}:'
-#     '{port}/{namespace}'.format(**connection_params)
-# )
-
+import os
+if os.path.isfile('mongo_uri.env'):
+    from configparser import ConfigParser
+    parser = ConfigParser()
+    parser.read('mongo_uri.env')
+    mongo = PyMongo(app, uri=parser['Mongo']['MONGO_URI'])
+else:
+    mongo = PyMongo(app)
+# import the routes for the flask application
 from app import routes
 
 # importing the other packages
