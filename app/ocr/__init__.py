@@ -15,7 +15,10 @@ def translate(text, dest='ro', src='en'):
 
 # TODO the next function must apply tesseract to extract the text from the image formated as base64 (str)
 # TODO and it will return the entire text
-def extract_text(img_base64, img_type):
+def extract_text(string_b64, ext):
+    import base64
+    img_bytes = base64.b64decode(string_b64) # this already is the initial jpeg or any other format (ext)
+
     pass
 
 
@@ -26,3 +29,5 @@ def translate_text(text, dest='ro', src='en'):
 
 # importing the routes for the ocr package
 from app.ocr import routes  # we use this to import all the necessary routes to the main app
+
+
