@@ -67,7 +67,6 @@ def create_doc(user_id):
     doc = {**doc, 'userId': user_id}
     #
     mongo.db.docs.insert_one(doc)
-    #
     return '{ "error": false}'
 
 
