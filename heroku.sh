@@ -1,1 +1,1 @@
-nodemon --exec "heroku local" -e .py,.html --signal SIGTERM
+nodemon --exec "heroku local -p 8080" -e .py,.html --signal SIGTERM
