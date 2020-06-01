@@ -28,6 +28,14 @@ def index():
     )
 
 
+@app.route('/docs', methods=['GET'])
+def download_docs():
+    req_data = request.get_json()
+    user_id = req_data.get('userId')
+    db_docs = list(mongo.db.docs.find({"userId": user_id}))
+    return jsonify(docs=db_docs, error="false")
+
+
 @app.route('/docs', methods=['POST'])
 def upload_docs():
     req_data = request.get_json()
@@ -46,6 +54,15 @@ def upload_docs():
         query = {"docId": doc.get('docId'), 'userId': user_id}
         updates = {"$set": doc}
         mongo.db.docs.update_one(query, updates)
+    # we translate all the texts:
+    from ocr import extract_text, translate_text
+    # for doc in list(mongo.db.docs.find({"userId": user_id})):
+    #     for i, par in enumerate(doc.pars):
+    #         doc.pars[i].ro = extract_text(par.img)
+    #         doc.pars[i].en = translate_text(doc.pars[i].ro)
+    #     query = {'docId': doc.get('docId')}
+    #     updates = { "$set": doc}
+    #     mongo.db.users.update_many(query, updates)
     #
     return '{ "error": false }'
 
